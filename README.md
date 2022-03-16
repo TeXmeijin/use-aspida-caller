@@ -21,7 +21,7 @@ const AwesomeComponent = () => {
         <View>
             <Text>{error.message}</Text>
             <Input value={personName} onChangeText={setPersonName}></Input>
-            <Button isLoading={isSending} isDisabled={isSending || isSubmitSucceed} onClick={onSubmit}>Send</Button>
+            <Button isLoading={isSending} isDisabled={isSending || isSendSuccessful} onClick={onSubmit}>Send</Button>
         </View>
     )
 }
