@@ -6,6 +6,23 @@ React Hooks for POST/PUT/DELETE requests by aspida
 
 ## Usage
 
-```ts
-const { send, isSending, isSendSuccessful, error } = useApiSenderAspida(apiClient.person, { method: "$post" })
+```tsx
+const AwesomeComponent = () => {
+    const { send, isSending, isSendSuccessful, error } = useApiSenderAspida(apiClient.person, { method: "$post" })
+    const onSubmit = useCallback(async () => {
+        await send({
+            body: {
+                name: personName
+            }
+        })
+    })
+
+    return (
+        <View>
+            <Text>{error.message}</Text>
+            <Input value={personName} onChangeText={setPersonName}></Input>
+            <Button isLoading={isSending} isDisabled={isSending || isSubmitSucceed} onClick={onSubmit}>Send</Button>
+        </View>
+    )
+}
 ```
