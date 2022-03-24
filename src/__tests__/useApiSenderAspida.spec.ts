@@ -1,4 +1,5 @@
 import { act, renderHook } from "@testing-library/react-hooks";
+import { vi } from "vitest";
 import { useApiSenderAspida } from "../";
 
 describe("postメソッドのみがある場合", () => {
@@ -37,8 +38,8 @@ describe("postメソッドのみがある場合", () => {
     expect(response).toBe("this is title2");
   });
   test("例外が発生した場合、throwされる。また、onErrorメソッドが呼ばれている", async () => {
-    const onSuccess = jest.fn();
-    const onError = jest.fn();
+    const onSuccess = vi.fn();
+    const onError = vi.fn();
     const { result } = renderHook(() =>
       useApiSenderAspida(postApiError, { onSuccess, onError })
     );
@@ -59,8 +60,8 @@ describe("postメソッドのみがある場合", () => {
     expect(onError.mock.calls.length).toBe(1);
   });
   test("onSuccessメソッドが成功時に呼ばれている", async () => {
-    const onSuccess = jest.fn();
-    const onError = jest.fn();
+    const onSuccess = vi.fn();
+    const onError = vi.fn();
     const { result } = renderHook(() =>
       useApiSenderAspida(postApi, { method: "$post", onSuccess, onError })
     );
