@@ -1,106 +1,28 @@
 import { useCallback, useState } from "react";
-
-type AspidaMethods = "$post" | "$put" | "$delete" | "$patch";
-type AspidaApiAny = {
-  $post?: (option: any) => Promise<any>;
-  $put?: (option: any) => Promise<any>;
-  $delete?: (option: any) => Promise<any>;
-  $patch?: (option: any) => Promise<any>;
-};
-type PickPost<T> = T extends {
-  $post?: infer Post;
-}
-  ? Post
-  : never;
-
-function useAspidaSender<Api extends { $post: () => unknown }>(
-  api: Api
-): PickPost<Api> {
-  return api.$post;
-}
-
-// type ResponseData<T extends (option: unknown) => Promise<any>> =
-//   ReturnType<T> extends Promise<infer S> ? S : never;
-
-// type SendAspidaApi<
-//   T extends {
-//     $post?: (option: unknown) => Promise<any>;
-//     $put?: (option: unknown) => Promise<any>;
-//     $delete?: (option: unknown) => Promise<any>;
-//     $patch?: (option: unknown) => Promise<any>;
-//   }
-// > = T extends {
-//   $post?: infer Post;
-//   $put?: infer Put;
-//   $delete?: infer Delete;
-//   $patch?: infer Patch;
-// }
-//   ? {
-//       $post?: Post;
-//       $put?: Put;
-//       $delete?: Delete;
-//       $patch?: Patch;
-//     }
-//   : never;
-
-type ReturnValue<Post, Put, Delete, Patch> = ("$post" extends keyof T
-  ? {
-      post: Post;
-      isPosting: boolean;
-      isPostSuccessful: boolean;
-      postError: Error | undefined;
-    }
-  : Record<string, never>) &
-  ("$put" extends keyof T
-    ? {
-        put: Put;
-        isPutting: boolean;
-        isPutSuccessful: boolean;
-        putError: Error | undefined;
-      }
-    : Record<string, never>) &
-  ("$delete" extends keyof T
-    ? {
-        deleteApi: Delete;
-        isDeleting: boolean;
-        isDeleteSuccessful: boolean;
-        deleteError: Error | undefined;
-      }
-    : Record<string, never>) &
-  ("$patch" extends keyof T
-    ? {
-        patch: Patch;
-        isPatching: boolean;
-        isPatchSuccessful: boolean;
-        patchError: Error | undefined;
-      }
-    : Record<string, never>);
+import { AllResult, AspidaMethods } from "./types/index";
 
 type Options = {
   onSuccess?: () => void;
   onError?: (err: unknown) => void;
 };
-type Func = <
-  T extends {
-    $post?: (option: any) => Promise<any>;
-    $put?: (option: any) => Promise<any>;
-    $delete?: (option: any) => Promise<any>;
-    $patch?: (option: any) => Promise<any>;
-  }
->(
+type Func = <T extends AspidaMethods>(
   api: T,
   options?: Options
-) => T extends {
-  $post?: infer Post;
-  $put?: infer Put;
-  $delete?: infer Delete;
-  $patch?: infer Patch;
-}
-  ? ReturnValue<Post, Put, Delete, Patch>
-  : never;
+) => AllResult<T>;
 
-export const useApiSenderAspida: Func = (api, options) => {
+export const useAspidaCaller: Func = (api, options) => {
   return {
+    ...(api.$get
+      ? (() => {
+          const {
+            send: get,
+            isSending: isGetting,
+            isSendSuccessful: isGetSuccessful,
+            error: getError,
+          } = useSingleAspida(api.$get, options);
+          return { get, isGetting, isGetSuccessful, getError };
+        })()
+      : {}),
     ...(api.$post
       ? (() => {
           const {
@@ -145,7 +67,7 @@ export const useApiSenderAspida: Func = (api, options) => {
           return { patch, isPatching, isPatchSuccessful, patchError };
         })()
       : {}),
-  };
+  } as AllResult<typeof api>;
 };
 
 const useSingleAspida: (

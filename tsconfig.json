@@ -4,9 +4,10 @@
     "module": "commonjs",
     "target": "es6",
     "declaration": true,
+    "skipLibCheck": true,
     "strict": true,
     "types": ["vitest/globals"]
   },
   "include": ["src"],
-  "exclude": ["node_modules"]
+  "exclude": ["node_modules", "src/types/__tests__"]
 }

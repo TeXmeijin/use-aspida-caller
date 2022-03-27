@@ -1,2 +1,2 @@
-import { useApiSenderAspida } from "./useApiSenderAspida";
-export { useApiSenderAspida };
+import { useAspidaCaller } from "./useAspidaCaller";
+export { useAspidaCaller };

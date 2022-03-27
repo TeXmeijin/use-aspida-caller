@@ -1,19 +1,40 @@
 import { act, renderHook } from "@testing-library/react-hooks";
 import { vi } from "vitest";
-import { useApiSenderAspida } from "../";
+import { useAspidaCaller } from "..";
 
+describe("getメソッドのみがある場合", () => {
+  const getApi: {
+    $get: (props: { title: string }) => Promise<string>;
+  } = {
+    $get: (props) => new Promise((resolve) => resolve(props.title)),
+  };
+  test("GET APIを呼び出すことができ、フラグなども正しく設定されている", async () => {
+    const { result } = renderHook(() => useAspidaCaller(getApi));
+    let response = "";
+
+    await act(async () => {
+      response = await result.current.get({ title: "this is title" });
+    });
+
+    expect(result.current.isGetting).toBeFalsy();
+    expect(result.current.isGetSuccessful).toBeTruthy();
+    expect(result.current.getError).toBeUndefined();
+    expect(response).toBe("this is title");
+  });
+});
 describe("postメソッドのみがある場合", () => {
-  const postApi = {
-    $post: (props: { title: string }) =>
-      new Promise((resolve) => resolve(props.title)),
+  const postApi: {
+    $post: (props: { title: string }) => Promise<string>;
+  } = {
+    $post: (props) => new Promise((resolve) => resolve(props.title)),
   };
   const postApiError = {
     $post: () => new Promise((resolve, reject) => reject(new Error("error!!"))),
   };
 
   test("POST APIを呼び出すことができ、フラグなども正しく設定されている", async () => {
-    const { result } = renderHook(() => useApiSenderAspida(postApi));
-    let response;
+    const { result } = renderHook(() => useAspidaCaller(postApi));
+    let response = "";
 
     await act(async () => {
       response = await result.current.post({ title: "this is title" });
@@ -28,12 +49,12 @@ describe("postメソッドのみがある場合", () => {
     const onSuccess = vi.fn();
     const onError = vi.fn();
     const { result } = renderHook(() =>
-      useApiSenderAspida(postApiError, { onSuccess, onError })
+      useAspidaCaller(postApiError, { onSuccess, onError })
     );
 
     let errorMessage;
     await act(async () => {
-      await result.current.post({}).catch((err) => {
+      await result.current.post().catch((err) => {
         errorMessage = err.message as string;
       });
     });
@@ -50,9 +71,9 @@ describe("postメソッドのみがある場合", () => {
     const onSuccess = vi.fn();
     const onError = vi.fn();
     const { result } = renderHook(() =>
-      useApiSenderAspida(postApi, { onSuccess, onError })
+      useAspidaCaller(postApi, { onSuccess, onError })
     );
-    let response;
+    let response = "";
 
     await act(async () => {
       response = await result.current.post({ title: "this is title" });
@@ -65,7 +86,11 @@ describe("postメソッドのみがある場合", () => {
     expect(onError.mock.calls.length).toBe(0);
   });
   test("存在しないAPIは含まれない", () => {
-    const { result } = renderHook(() => useApiSenderAspida(postApi));
+    const { result } = renderHook(() => useAspidaCaller(postApi));
+    expect("get" in result.current).toBe(false);
+    expect("isGetting" in result.current).toBe(false);
+    expect("isGetSuccessful" in result.current).toBe(false);
+    expect("getError" in result.current).toBe(false);
     expect("post" in result.current).toBe(true);
     expect("isPosting" in result.current).toBe(true);
     expect("isPostSuccessful" in result.current).toBe(true);
@@ -77,7 +102,7 @@ describe("postメソッドのみがある場合", () => {
     expect("deleteApi" in result.current).toBe(false);
     expect("isDeleting" in result.current).toBe(false);
     expect("isDeleteSuccessful" in result.current).toBe(false);
-    expect("deleteError" in result.current).toBe(false);
+    expect("deleteApi" in result.current).toBe(false);
     expect("patch" in result.current).toBe(false);
     expect("isPatching" in result.current).toBe(false);
     expect("isPatchSuccessful" in result.current).toBe(false);
@@ -86,20 +111,26 @@ describe("postメソッドのみがある場合", () => {
 });
 
 describe("POST/PUT/DELETEメソッドがある場合", () => {
-  const postAndPutAndDeleteApi = {
+  const postAndPutAndDeleteApi: {
+    $post: (props: { title: string }) => Promise<string>;
+    $put: (props: { title: string }) => Promise<string>;
+    $delete: (props: { title: string }) => Promise<string>;
+  } = {
     $post: (props: { title: string }) =>
       new Promise((resolve) => resolve(props.title)),
     $put: (props: { title: string }) =>
       new Promise((resolve) => props.title && resolve("this is put method")),
     $delete: (props: { title: string }) =>
-      new Promise((resolve) => props.title && resolve("this is delete method")),
+      new Promise(
+        (resolve) => props.title && resolve("this is deleteApi method")
+      ),
   };
 
   test("POST APIを呼び出すことができ、フラグなども正しく設定されている", async () => {
     const { result } = renderHook(() =>
-      useApiSenderAspida(postAndPutAndDeleteApi)
+      useAspidaCaller(postAndPutAndDeleteApi)
     );
-    let response;
+    let response = "";
 
     await act(async () => {
       response = await result.current.post({ title: "this is title" });
@@ -111,9 +142,9 @@ describe("POST/PUT/DELETEメソッドがある場合", () => {
   });
   test("PUT APIを呼び出すことができ、フラグなども正しく設定されている", async () => {
     const { result } = renderHook(() =>
-      useApiSenderAspida(postAndPutAndDeleteApi)
+      useAspidaCaller(postAndPutAndDeleteApi)
     );
-    let response;
+    let response = "";
 
     await act(async () => {
       response = await result.current.put({ title: "this is title" });
@@ -125,9 +156,9 @@ describe("POST/PUT/DELETEメソッドがある場合", () => {
   });
   test("DELETE APIを呼び出すことができ、フラグなども正しく設定されている", async () => {
     const { result } = renderHook(() =>
-      useApiSenderAspida(postAndPutAndDeleteApi)
+      useAspidaCaller(postAndPutAndDeleteApi)
     );
-    let response;
+    let response = "";
 
     await act(async () => {
       response = await result.current.deleteApi({ title: "this is title" });
@@ -135,12 +166,16 @@ describe("POST/PUT/DELETEメソッドがある場合", () => {
 
     expect(result.current.isDeleting).toBeFalsy();
     expect(result.current.isDeleteSuccessful).toBeTruthy();
-    expect(response).toBe("this is delete method");
+    expect(response).toBe("this is deleteApi method");
   });
   test("存在しないAPIは含まれない", () => {
     const { result } = renderHook(() =>
-      useApiSenderAspida(postAndPutAndDeleteApi)
+      useAspidaCaller(postAndPutAndDeleteApi)
     );
+    expect("get" in result.current).toBe(false);
+    expect("isGetting" in result.current).toBe(false);
+    expect("isGetSuccessful" in result.current).toBe(false);
+    expect("getError" in result.current).toBe(false);
     expect("post" in result.current).toBe(true);
     expect("isPosting" in result.current).toBe(true);
     expect("isPostSuccessful" in result.current).toBe(true);
@@ -152,7 +187,7 @@ describe("POST/PUT/DELETEメソッドがある場合", () => {
     expect("deleteApi" in result.current).toBe(true);
     expect("isDeleting" in result.current).toBe(true);
     expect("isDeleteSuccessful" in result.current).toBe(true);
-    expect("deleteError" in result.current).toBe(true);
+    expect("deleteApi" in result.current).toBe(true);
     expect("patch" in result.current).toBe(false);
     expect("isPatching" in result.current).toBe(false);
     expect("isPatchSuccessful" in result.current).toBe(false);
