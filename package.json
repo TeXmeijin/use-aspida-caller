@@ -7,8 +7,8 @@
   "scripts": {
     "build": "tsc",
     "lint": "eslint . --ext .ts",
-    "test": "vitest",
-    "test:publish": "vitest --run",
+    "test": "tsd && vitest",
+    "test:publish": "tsd && vitest --run",
     "prepare": "npm run build",
     "prepublishOnly": "npm test:publish && npm run lint",
     "preversion": "npm run lint",

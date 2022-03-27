@@ -1,11 +1,11 @@
 import { SpreadTwo } from "./utils";
 
 export type AspidaMethods = {
-  $get?: (option: any) => Promise<any>;
-  $post?: (option: any) => Promise<any>;
-  $put?: (option: any) => Promise<any>;
-  $delete?: (option: any) => Promise<any>;
-  $patch?: (option: any) => Promise<any>;
+  $get?: (...option: any) => Promise<any>;
+  $post?: (...option: any) => Promise<any>;
+  $put?: (...option: any) => Promise<any>;
+  $delete?: (...option: any) => Promise<any>;
+  $patch?: (...option: any) => Promise<any>;
 };
 type GetResult<
   AspidaMethods extends {
