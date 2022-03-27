@@ -1,6 +1,6 @@
 {
   "name": "@texmeijin/use-aspida-caller",
-  "version": "0.1.0",
+  "version": "0.1.1",
   "description": "React Hooks for getting callers and states by aspida",
   "main": "lib/index.js",
   "types": "lib/index.d.ts",
@@ -8,8 +8,9 @@
     "build": "tsc",
     "lint": "eslint . --ext .ts",
     "test": "vitest",
+    "test:publish": "vitest --run",
     "prepare": "npm run build",
-    "prepublishOnly": "npm test && npm run lint",
+    "prepublishOnly": "npm test:publish && npm run lint",
     "preversion": "npm run lint",
     "version": "git add -A src",
     "postversion": "git push && git push --tags",
@@ -19,7 +20,7 @@
   },
   "repository": {
     "type": "git",
-    "url": "git+https://github.com/TeXmeijin/use-sender-aspida-hooks.git"
+    "url": "git+https://github.com/TeXmeijin/use-aspida-caller.git"
   },
   "files": [
     "lib/**/*"
