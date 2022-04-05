@@ -1,30 +1,49 @@
 ## useAspidaCaller
 
-React Hooks for getting callers and states by aspida.
+React Hooks for calling type-safe REST APIs with aspida.
 
 ⚠️This hook is PoC.⚠️
 
 ## Usage
 
 ```tsx
-const AwesomeComponent = () => {
-    const { post, isPosting, isPostSuccessful, postError } = useAspidaCaller(apiClient.person)
-    const onSubmit = useCallback(async () => {
-        await post({
-            body: {
-                name: personName
-            }
-        })
-    })
+const Home: NextPage = () => {
+  const [getResult, setGetResult] = useState<{ name: string }>();
+  const {
+    get,
+    isGetting,
+    isGetSuccessful,
+    getError,
+    put,
+    isPutting,
+    isPutSuccessful,
+    putError,
+  } = useAspidaCaller(client.people._id(1));
 
-    return (
-        <View>
-            <Text>{error.message}</Text>
-            <Input value={personName} onChangeText={setPersonName}></Input>
-            <Button isLoading={isPosting} isDisabled={isPosting || isPostSuccessful} onClick={onSubmit}>Send</Button>
-        </View>
-    )
-}
+  const handleGetClick = async () => {
+    setGetResult(await get({ query: { with_detail: true } }));
+  };
+  const handlePutClick = async () => {
+    await put({ body: { name: "hoge" } }).catch((err) => null);
+  };
+
+  return (
+    <div className={styles.container}>
+      <main className={styles.main}>
+        <button onClick={handleGetClick}>Get Value</button>
+        {isGetting && <p className={styles.description}>Loading...</p>}
+        <p className={styles.description}>
+          Result: {getResult?.name} / {isGetSuccessful && "Success!"}
+        </p>
+        <button onClick={handlePutClick}>Put Value</button>
+        {isPutting && <p className={styles.description}>Loading...</p>}
+        <p className={styles.description}>
+          Error: {putError?.message} / {isPutSuccessful && "Success!"}
+        </p>
+      </main>
+    </div>
+  );
+};
 ```
 
 ## TODO
