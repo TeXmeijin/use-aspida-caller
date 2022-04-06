@@ -1,5 +1,5 @@
 import { useCallback, useState } from "react";
-import { AllResult, AspidaMethods } from "./types/index";
+import { AllResult, AspidaMethods } from "../types/index";
 
 type Options = {
   onSuccess?: () => void;
