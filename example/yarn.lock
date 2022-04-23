@@ -151,10 +151,10 @@
   resolved "https://registry.yarnpkg.com/@rushstack/eslint-patch/-/eslint-patch-1.0.8.tgz#be3e914e84eacf16dbebd311c0d0b44aa1174c64"
   integrity sha512-ZK5v4bJwgXldAUA8r3q9YKfCwOqoHTK/ZqRjSeRXQrBXWouoPnS4MQtgC4AXGiiBuUu5wxrRgTlv0ktmM4P1Aw==
 
-"@texmeijin/use-aspida-caller@^0.1.3":
-  version "0.1.3"
-  resolved "https://registry.yarnpkg.com/@texmeijin/use-aspida-caller/-/use-aspida-caller-0.1.3.tgz#8f9f18378e5f9fe6191157be61e84c95cfa67932"
-  integrity sha512-6WdYGYOgQ9iPYAcMrad3yZOOghae1yMnSayfVIML9op+geMxN7EHl49C808fHBwB46mZguiA+yIr7D1zMWWVNA==
+"@texmeijin/use-aspida-caller@^0.1.4":
+  version "0.1.4"
+  resolved "https://registry.yarnpkg.com/@texmeijin/use-aspida-caller/-/use-aspida-caller-0.1.4.tgz#c60830336c4463a9ce0772865dd5b6345ca963d2"
+  integrity sha512-wX/Xab08nb+xfRZmgHP/x7BBuTUKd1xv42ZtgkM3a+tRuVHY0YoooziFgE1m9xWC9+9WYeK8vzMLxMZehjpZxw==
 
 "@types/json5@^0.0.29":
   version "0.0.29"

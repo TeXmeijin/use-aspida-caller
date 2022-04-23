@@ -1,13 +1,12 @@
-import { useAspidaCaller } from "@texmeijin/use-aspida-caller";
 import type { NextPage } from "next";
 import Head from "next/head";
-import Image from "next/image";
 import styles from "../styles/Home.module.css";
 
 import aspida from "@aspida/axios";
 import api from "../api/$api";
 import axios from "axios";
-import { useState } from "react";
+import { useEffect, useState } from "react";
+import { useAspidaCaller } from "@texmeijin/use-aspida-caller";
 const client = api(
   aspida(axios, {
     baseURL: "https://swapi.dev/api",
@@ -16,15 +15,16 @@ const client = api(
 
 const Home: NextPage = () => {
   const [getResult, setGetResult] = useState<{ name: string }>();
+
   const {
-    get,
-    isGetting,
-    isGetSuccessful,
-    getError,
     put,
     isPutting,
     isPutSuccessful,
     putError,
+    get,
+    isGetting,
+    isGetSuccessful,
+    getError,
   } = useAspidaCaller(client.people._id(1));
 
   const handleGetClick = async () => {
@@ -52,10 +52,13 @@ const Home: NextPage = () => {
 
         <button onClick={handleGetClick}>Get Value</button>
         {isGetting && <p className={styles.description}>Loading...</p>}
+
         <p className={styles.description}>
           Result: {getResult?.name} / {isGetSuccessful && "Success!"}
         </p>
+
         <button onClick={handlePutClick}>Put Value</button>
+
         {isPutting && <p className={styles.description}>Loading...</p>}
         <p className={styles.description}>
           Error: {putError?.message} / {isPutSuccessful && "Success!"}

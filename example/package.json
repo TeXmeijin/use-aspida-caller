@@ -13,7 +13,7 @@
     "react": "18.0.0",
     "react-dom": "18.0.0",
     "@aspida/axios": "^1.9.1",
-    "@texmeijin/use-aspida-caller": "^0.1.3",
+    "@texmeijin/use-aspida-caller": "^0.1.4",
     "axios": "^0.26.1"
   },
   "devDependencies": {
