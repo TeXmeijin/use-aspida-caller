@@ -1,10 +1,17 @@
 ## useAspidaCaller
 
-REST APIに対して**型安全に呼び出し・状態管理ができるReact Hooks**ライブラリを書きました。
+REST APIを**型安全に呼び出し・状態管理ができるReact Hooks**ライブラリを書きました。
 
 すでにaspidaを使ってREST APIを型安全に実行しており、かつReactを使っている方に**強くおすすめ**します。
 
 https://github.com/TeXmeijin/use-aspida-caller
+
+## install
+
+```
+npm i @texmeijin/use-aspida-caller
+yarn add @texmeijin/use-aspida-caller
+```
 
 ## 特長① ローディングやエラーなどのAPI呼び出しに関連する状態管理ができる
 
