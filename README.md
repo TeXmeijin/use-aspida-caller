@@ -9,8 +9,8 @@ https://github.com/TeXmeijin/use-aspida-caller
 ## install
 
 ```
-npm i @texmeijin/use-aspida-caller
-yarn add @texmeijin/use-aspida-caller
+npm i use-aspida-caller
+yarn add use-aspida-caller
 ```
 
 ## 特長① ローディングやエラーなどのAPI呼び出しに関連する状態管理ができる
