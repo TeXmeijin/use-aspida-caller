@@ -151,11 +151,6 @@
   resolved "https://registry.yarnpkg.com/@rushstack/eslint-patch/-/eslint-patch-1.0.8.tgz#be3e914e84eacf16dbebd311c0d0b44aa1174c64"
   integrity sha512-ZK5v4bJwgXldAUA8r3q9YKfCwOqoHTK/ZqRjSeRXQrBXWouoPnS4MQtgC4AXGiiBuUu5wxrRgTlv0ktmM4P1Aw==
 
-"@texmeijin/use-aspida-caller@^0.1.4":
-  version "0.1.4"
-  resolved "https://registry.yarnpkg.com/@texmeijin/use-aspida-caller/-/use-aspida-caller-0.1.4.tgz#c60830336c4463a9ce0772865dd5b6345ca963d2"
-  integrity sha512-wX/Xab08nb+xfRZmgHP/x7BBuTUKd1xv42ZtgkM3a+tRuVHY0YoooziFgE1m9xWC9+9WYeK8vzMLxMZehjpZxw==
-
 "@types/json5@^0.0.29":
   version "0.0.29"
   resolved "https://registry.yarnpkg.com/@types/json5/-/json5-0.0.29.tgz#ee28707ae94e11d2b827bcbe5270bcea7f3e71ee"
@@ -1763,6 +1758,11 @@ uri-js@^4.2.2:
   integrity sha512-7rKUyy33Q1yc98pQ1DAmLtwX109F7TIfWlW1Ydo8Wl1ii1SeHieeh0HHfPeL2fMXK6z0s8ecKs9frCuLJvndBg==
   dependencies:
     punycode "^2.1.0"
+
+use-aspida-caller@^1.0.1:
+  version "1.0.1"
+  resolved "https://registry.yarnpkg.com/use-aspida-caller/-/use-aspida-caller-1.0.1.tgz#820f91b29a7fce9964e16b0f535e1c74a5b21a6b"
+  integrity sha512-mSB0aqyFn2T3OhcKHkOK84TkVjfYp1p0H460wUzUee7pPGL5JN0ArHboJpVemEg6Q827kt2pk7/mMqWnNo5wQA==
 
 v8-compile-cache@^2.0.3:
   version "2.3.0"

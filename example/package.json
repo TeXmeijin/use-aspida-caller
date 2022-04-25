@@ -9,12 +9,12 @@
     "lint": "next lint"
   },
   "dependencies": {
+    "@aspida/axios": "^1.9.1",
+    "axios": "^0.26.1",
     "next": "12.1.4",
     "react": "18.0.0",
     "react-dom": "18.0.0",
-    "@aspida/axios": "^1.9.1",
-    "@texmeijin/use-aspida-caller": "^0.1.4",
-    "axios": "^0.26.1"
+    "use-aspida-caller": "^1.0.1"
   },
   "devDependencies": {
     "@types/node": "17.0.23",

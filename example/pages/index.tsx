@@ -6,7 +6,7 @@ import aspida from "@aspida/axios";
 import api from "../api/$api";
 import axios from "axios";
 import { useEffect, useState } from "react";
-import { useAspidaCaller } from "@texmeijin/use-aspida-caller";
+import { useAspidaCaller } from "use-aspida-caller";
 const client = api(
   aspida(axios, {
     baseURL: "https://swapi.dev/api",
