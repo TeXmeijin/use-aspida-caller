@@ -1,6 +1,6 @@
 {
   "name": "use-aspida-caller",
-  "version": "1.0.1",
+  "version": "1.0.2",
   "description": "React Hooks for getting callers and states by aspida",
   "main": "lib/index.js",
   "types": "lib/index.d.ts",
