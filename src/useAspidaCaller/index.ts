@@ -88,6 +88,7 @@ const useSingleAspida: (
       return await method(sendProps)
         .then((res) => {
           setIsSendSuccessful(true);
+          setError(undefined)
           options?.onSuccess && options.onSuccess();
           return res;
         })

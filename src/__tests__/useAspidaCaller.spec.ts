@@ -8,6 +8,7 @@ describe("getメソッドのみがある場合", () => {
   } = {
     $get: (props) => new Promise((resolve) => resolve(props.title)),
   };
+
   test("GET APIを呼び出すことができ、フラグなども正しく設定されている", async () => {
     const { result } = renderHook(() => useAspidaCaller(getApi));
     let response = "";
@@ -21,6 +22,36 @@ describe("getメソッドのみがある場合", () => {
     expect(result.current.getError).toBeUndefined();
     expect(response).toBe("this is title");
   });
+
+  const getApiFirstErrorSecondSuccess: {
+    $get: (props: { title: string }) => Promise<string>;
+  } = {
+    $get: vi.fn().mockReturnValueOnce(new Promise((resolve, reject) => reject(new Error("error!")))).mockReturnValueOnce(new Promise((resolve) => resolve('this is title'))),
+  };
+
+  test("一度ErrorになったAPIを再度呼び出して成功した場合、ErrorがNULLに戻る", async () => {
+    const { result } = renderHook(() => useAspidaCaller(getApiFirstErrorSecondSuccess));
+    let response = "";
+
+    await act(async () => {
+      await result.current.get({ title: "this is title" }).catch((err) => {
+        response = err.message as string;
+      });
+    });
+
+    expect(result.current.isGetting).toBeFalsy();
+    expect(result.current.isGetSuccessful).toBeFalsy();
+    expect(result.current.getError?.message).toEqual("error!");
+
+    await act(async () => {
+      response = await result.current.get({ title: "this is title" });
+    });
+
+    expect(result.current.isGetting).toBeFalsy();
+    expect(result.current.isGetSuccessful).toBeTruthy();
+    expect(result.current.getError).toBeUndefined();
+    expect(response).toBe("this is title");
+  })
 });
 describe("postメソッドのみがある場合", () => {
   const postApi: {
