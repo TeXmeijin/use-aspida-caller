@@ -15,11 +15,12 @@ type GetResult<
   $get: infer GetAction;
 }
   ? {
-      get: GetAction;
-      isGetting: boolean;
-      isGetSuccessful: boolean;
-      getError: Error | null;
-    }
+    get: GetAction;
+    isGetting: boolean;
+    isGetSuccessful: boolean;
+    getError: Error | null;
+    getResponse: any | undefined;
+  }
   : undefined;
 type PostResult<
   AspidaMethods extends {
@@ -29,11 +30,12 @@ type PostResult<
   $post: infer PostAction;
 }
   ? {
-      post: PostAction;
-      isPosting: boolean;
-      isPostSuccessful: boolean;
-      postError: Error | null;
-    }
+    post: PostAction;
+    isPosting: boolean;
+    isPostSuccessful: boolean;
+    postError: Error | null;
+    postResponse: any | undefined;
+  }
   : undefined;
 type PutResult<
   AspidaMethods extends {
@@ -41,11 +43,12 @@ type PutResult<
   }
 > = AspidaMethods extends { $put: infer PutAction }
   ? {
-      put: PutAction;
-      isPutting: boolean;
-      isPutSuccessful: boolean;
-      putError: Error | null;
-    }
+    put: PutAction;
+    isPutting: boolean;
+    isPutSuccessful: boolean;
+    putError: Error | null;
+    putResponse: any | undefined;
+  }
   : undefined;
 type DeleteResult<
   AspidaMethods extends {
@@ -53,11 +56,12 @@ type DeleteResult<
   }
 > = AspidaMethods extends { $delete: infer PutAction }
   ? {
-      deleteApi: PutAction;
-      isDeleting: boolean;
-      isDeleteSuccessful: boolean;
-      deleteError: Error | null;
-    }
+    deleteApi: PutAction;
+    isDeleting: boolean;
+    isDeleteSuccessful: boolean;
+    deleteError: Error | null;
+    deleteResponse: any | undefined;
+  }
   : undefined;
 type PatchResult<
   AspidaMethods extends {
@@ -65,11 +69,12 @@ type PatchResult<
   }
 > = AspidaMethods extends { $patch: infer PutAction }
   ? {
-      patch: PutAction;
-      isPatching: boolean;
-      isPatchSuccessful: boolean;
-      patchError: Error | null;
-    }
+    patch: PutAction;
+    isPatching: boolean;
+    isPatchSuccessful: boolean;
+    patchError: Error | null;
+    patchResponse: any | undefined;
+  }
   : undefined;
 
 export type AllResult<M extends AspidaMethods> = SpreadTwo<

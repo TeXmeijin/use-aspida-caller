@@ -10,6 +10,7 @@ expectAssignable<
   isGetting: false,
   isGetSuccessful: false,
   getError: new Error(),
+  getResponse: "response data",
 });
 expectAssignable<
   AllResult<{
@@ -20,6 +21,7 @@ expectAssignable<
   isPosting: false,
   isPostSuccessful: false,
   postError: new Error(),
+  postResponse: "response data",
 });
 expectAssignable<
   AllResult<{
@@ -30,6 +32,7 @@ expectAssignable<
   isPutting: false,
   isPutSuccessful: false,
   putError: new Error(),
+  putResponse: "response data",
 });
 expectAssignable<
   AllResult<{
@@ -40,6 +43,7 @@ expectAssignable<
   isDeleting: false,
   isDeleteSuccessful: false,
   deleteError: new Error(),
+  deleteResponse: "response data",
 });
 expectAssignable<
   AllResult<{
@@ -50,6 +54,7 @@ expectAssignable<
   isPatching: false,
   isPatchSuccessful: false,
   patchError: new Error(),
+  patchResponse: "response data",
 });
 expectAssignable<
   AllResult<{
@@ -61,10 +66,12 @@ expectAssignable<
   isPosting: false,
   isPostSuccessful: false,
   postError: new Error(),
+  postResponse: "response data",
   put: async (props: { title: string }) => props.title,
   isPutting: false,
   isPutSuccessful: false,
   putError: new Error(),
+  putResponse: "response data",
 });
 expectAssignable<
   AllResult<{
@@ -76,10 +83,12 @@ expectAssignable<
   isPosting: false,
   isPostSuccessful: false,
   postError: new Error(),
+  postResponse: "response data",
   deleteApi: async (props: { title: string }) => props.title,
   isDeleting: false,
   isDeleteSuccessful: false,
   deleteError: new Error(),
+  deleteResponse: "response data",
 });
 expectAssignable<
   AllResult<{
@@ -91,10 +100,12 @@ expectAssignable<
   isPatching: false,
   isPatchSuccessful: false,
   patchError: new Error(),
+  patchResponse: "response data",
   deleteApi: async (props: { title: string }) => props.title,
   isDeleting: false,
   isDeleteSuccessful: false,
   deleteError: new Error(),
+  deleteResponse: "response data",
 });
 expectAssignable<
   AllResult<{
@@ -109,20 +120,25 @@ expectAssignable<
   isGetting: false,
   isGetSuccessful: false,
   getError: new Error(),
+  getResponse: "response data",
   post: async (props: { title: string }) => props.title,
   isPosting: false,
   isPostSuccessful: false,
   postError: new Error(),
+  postResponse: "response data",
   put: async (props: { title: string }) => props.title,
   isPutting: false,
   isPutSuccessful: false,
   putError: new Error(),
+  putResponse: "response data",
   patch: async (props: { title: string }) => props.title,
   isPatching: false,
   isPatchSuccessful: false,
   patchError: new Error(),
+  patchResponse: "response data",
   deleteApi: async (props: { title: string }) => props.title,
   isDeleting: false,
   isDeleteSuccessful: false,
   deleteError: new Error(),
+  deleteResponse: "response data",
 });
